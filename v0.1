@@ -6,11 +6,8 @@ if [ -x "$(command -v scoop)" ]; then
         scoop install wget
         scoop install adopt8-hotspot
     else
-        Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-
-        iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
-       scoop install wget
-       scoop install adopt8-hotspot
+        echo "Please Install Scoop"
+        exit 1
     fi
 }
 
