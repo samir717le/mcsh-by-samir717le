@@ -1,0 +1,83 @@
+#!/bin/bash
+#Function To Install And Detect Scoop
+Scoop_d() {
+if [ -x "$(command -v scoop)" ]; then
+        echo "Scoop Is Installed"
+        scoop install wget
+        scoop install adopt8-hotspot
+    else
+        Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+
+        iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+       scoop install wget
+       scoop install adopt8-hotspot
+    fi
+}
+
+# Function to detect the operating system
+detect_os() {
+    case "$(uname -s)" in
+        Linux*)     os="Linux";;
+        Darwin*)    os="Mac";;
+        CYGWIN*)    os="Windows";;
+        MINGW*)     os="Windows";;
+        *)          os="Unknown";;
+    esac
+}
+
+# Function to install wget on Linux
+install_wget_linux() {
+    sudo apt update
+    sudo apt install wget -y
+}
+
+# Function to install wget on macOS using Homebrew
+install_wget_mac() {
+    brew install wget
+}
+
+# Function to install OpenJDK 18 on Linux (Ubuntu/Debian)
+install_openjdk_linux() {
+    sudo apt update
+    sudo apt install openjdk-18-jdk -y
+}
+
+# Function to install OpenJDK 18 on macOS using Homebrew
+install_openjdk_mac() {
+    brew install openjdk@18
+}
+
+
+# Main function
+main() {
+    detect_os
+
+    case "$os" in
+        "Linux")    
+                    install_wget_linux
+                    install_openjdk_linux
+                    ;;
+        "Mac")      
+                    install_wget_mac
+                    install_openjdk_mac
+                    ;;
+        "Windows")  
+                    scoop_d
+                    
+                    ;;
+        *)          
+                    echo "Unsupported operating system."
+                    ;;
+    esac
+}
+
+# Call the main function
+main
+
+cd /var/
+mkdir mcsh
+cd mcsh
+mkdir menu
+mkdir servers
+cd menu
+wget 
