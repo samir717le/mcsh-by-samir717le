@@ -73,11 +73,43 @@ main() {
 
 # Call the main function
 main
-echo "bash /var/mcsh/menu"
+#!/bin/bash
+
+# Function to check if a command exists
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+# Function to install dialog on Debian/Ubuntu
+install_dialog_debian() {
+  sudo apt update
+  sudo apt install dialog
+}
+
+# Function to install dialog on Fedora
+install_dialog_fedora() {
+  sudo dnf install dialog
+}
+
+# Function to install dialog on CentOS/RHEL
+install_dialog_centos() {
+  sudo yum install dialog
+}
+
+# Detect the operating system and install dialog
+if command_exists "apt"; then
+  install_dialog_debian
+elif command_exists "dnf"; then
+  install_dialog_fedora
+elif command_exists "yum"; then
+  install_dialog_centos
+else
+  echo "Unable to detect your operating system or package manager. Please install dialog manually."
+fi
+echo "bash /var/mcsh/menu">/bin/mcsh
 cd /var/
 mkdir mcsh
 cd mcsh
 mkdir menu
 mkdir servers
-cd menu
-wget 
+echo "Install Complate! Type mcsh"
