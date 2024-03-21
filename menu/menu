@@ -1,0 +1,20 @@
+#!/bin/bash
+# Define the options for the menu
+options=(
+    1 "Servers"
+    2 "Settings"
+    3 "Packages"
+)
+
+# Show the menu using dialog
+choice=$(dialog --clear --backtitle "MC SERVER HOST" --title "Main Menu" \
+                --menu "Choose an option:" 15 40 4 "${options[@]}" \
+                2>&1 >/dev/tty)
+
+# Perform actions based on the user's choice
+case $choice in
+    1) bash /var/mcsh/menu/list;;
+    2) bash /var/mcsh/menu/settings;;
+    3) bash /var/mcsh/menu/pkg;;
+    *) echo "Invalid option." ;;
+esac

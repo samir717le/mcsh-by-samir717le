@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Define the options for the menu
+options=(
+    1 "start"
+    2 "plugins"
+    3 "share"
+    4 "remove"
+)
+
+# Show the menu using dialog
+choice=$(dialog --clear --backtitle "MC SERVER HOST" --title "Main Menu" \
+                --menu "Choose an option:" 15 40 4 "${options[@]}" \
+                2>&1 >/dev/tty)
+
+# Perform actions based on the user's choice
+case $choice in
+    1) java -jar server.jar;;
+    2) echo "You selected Settings." ;;
+    3) echo "You selected Packages." ;;
+    4) read -p "Type Server Name for Confirm: " sname
+cd ..
+rm -r $sname
+;;
+    *) echo "Invalid option." ;;
+esac

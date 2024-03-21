@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Function to display the dialog and capture user input
+show_dialog() {
+    dialog --backtitle "Create Dialog" \
+           --title "Create Dialog" \
+           --form "\nFill in the fields" \
+           15 60 0 \
+           "Name:"      1 1 "" 1 7 25 0 \
+           "Version:"   2 1 "" 2 7 10 0 \
+           "Build:"     3 1 "" 3 7 10 0 \
+           "EULA:"      4 1 "true" 4 7 10 0 \
+           2> temp.txt
+
+    # Check if user canceled the dialog
+    if [ $? -eq 1 ]; then
+        echo "Dialog canceled."
+        exit 1
+    fi
+
+    # Read user input from the temporary file
+    readarray -t values < temp.txt
+
+    # Display the user input
+    name=${values[0]}
+    ver=${values[1]}
+    build=${values[2]}
+    eula=${values[3]}"
+}
+case $eula in
+ true)
+         
+         cd /var/mcsh
+         cd servers
+         mkdir $name
+         cd $name
+         echo "eula=true">eula.txt
+         wget https://api.papermc.io/v2/projects/paper/versions/$ver/builds/$build/downloads/paper-$ver-$build.jar
+         mv paper-$ver-$build.jar server.jar
+         chmod +x server.jar
+          echo server $name created successful on version: $ver
+          echo "$name">>../servers.txt
+         ;;
+ false)
+         echo "We can't create Server Because You Not Agree To EULA"
+         ;;
+ *)
+   echo Please type eula=true/false
+   ;;
+
+
+# Call the function to show the dialog
+show_dialog
+
+
+bash /var/mcsh/menu/panel

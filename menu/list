@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Get a list of directories in the current directory
+directories=$(ls -d /var/mcsh/servers*)
+
+# Initialize an array to store directory names
+dir_array=()
+
+# Loop through each directory and add it to the array
+for dir in $directories; do
+    dir_array+=("$dir" "")
+done
+
+# Use dialog to create a menu of directories
+selection=$(dialog --clear \
+                --backtitle "Folder List" \
+                --title "Select a folder" \
+                --menu "Choose one of the following folders:" \
+                15 60 10 \
+                "${dir_array[@]}" \
+                "create"\
+                2>&1 >/dev/tty)
+
+# Check if a selection was made
+case $selection in
+create) mcsh_create;;
+else
+if [ -n "$selection" ]; then
+    # Change directory to the selected folder
+    cd "${selection%/}" || { echo "Error: Unable to change directory"; exit 1; }
+    
+else
+    echo "No folder selected."
+fi
+easc
