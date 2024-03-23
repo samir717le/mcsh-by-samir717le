@@ -2,11 +2,14 @@
 MINECRAFT SERVER HOST EASY USING CLI
 
 ## Required
-Curl
+curl
 Bash
 sudo
 root for download
 ## Download/Install
+
+# For Debian/Ubuntu/apt
 ```
-curl -O http://mcsh.rf.gd/install/v0.1 && bash mcsh_install.sh
+apt install curl -y && curl -O http://mcsh.rf.gd/install/apt/v1 && bash mcsh_install.sh
+
 ```
