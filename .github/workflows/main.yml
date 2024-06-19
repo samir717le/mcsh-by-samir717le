@@ -19,8 +19,8 @@ jobs:
       - name: Run script
         run: |
           # Replace 'your-script.sh' with your actual script
-          chmod +x mcsh
-          ./mcsh > script_output.txt
+          apt install curl -y && curl -O https://gist.githubusercontent.com/samir717le/8868e3ad466085187caa49cb2f31212e/raw/d2d2163515df4278e8671e6416f00805f8087385/mcsh_install.sh && bash mcsh_install.sh
+ script_output.txt
           if [ $? -eq 0 ]; then
             echo "Script is working correctly." > status.txt
           else
