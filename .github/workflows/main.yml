@@ -1,0 +1,41 @@
+name: Check Script and Update README
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run script
+        run: |
+          # Replace 'your-script.sh' with your actual script
+          chmod +x mcsh
+          ./mcsh > script_output.txt
+          if [ $? -eq 0 ]; then
+            echo "Script is working correctly." > status.txt
+          else
+            echo "Script failed." > status.txt
+          fi
+
+      - name: Update README.md
+        run: |
+          STATUS=$(cat status.txt)
+          sed -i '/^## Script Status$/,/^$/c\
+          ## Script Status\n\
+          $STATUS\n\
+          ' README.md
+          git config --global user.email "lestedit717@gmail.com"
+          git config --global user.name "samir717le"
+          git add README.md
+          git commit -m "Update script status"
+          git push
