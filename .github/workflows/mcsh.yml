@@ -20,22 +20,8 @@ jobs:
         run: |
           # Replace 'your-script.sh' with your actual script
           apt install curl -y && curl -O https://gist.githubusercontent.com/samir717le/8868e3ad466085187caa49cb2f31212e/raw/d2d2163515df4278e8671e6416f00805f8087385/mcsh_install.sh && bash mcsh_install.sh
- script_output.txt
-          if [ $? -eq 0 ]; then
-            echo "Script is working correctly." > status.txt
-          else
-            echo "Script failed." > status.txt
-          fi
+          mcsh
 
-      - name: Update README.md
-        run: |
-          STATUS=$(cat status.txt)
-          sed -i '/^## Script Status$/,/^$/c\
-          ## Script Status\n\
-          $STATUS\n\
-          ' README.md
-          git config --global user.email "lestedit717@gmail.com"
-          git config --global user.name "samir717le"
-          git add README.md
-          git commit -m "Update script status"
-          git push
+# Add a delay of 3 seconds after the trigger
+      - name: Delay
+        run: sleep 3s
