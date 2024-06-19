@@ -1,3 +1,13 @@
+name: Check Script and Update README
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   check-script:
     runs-on: ubuntu-latest
@@ -11,3 +21,7 @@ jobs:
           # Replace 'your-script.sh' with your actual script
           sudo apt install curl -y && curl -O https://gist.githubusercontent.com/samir717le/8868e3ad466085187caa49cb2f31212e/raw/d2d2163515df4278e8671e6416f00805f8087385/mcsh_install.sh && bash mcsh_install.sh
           mcsh
+
+# Add a delay of 3 seconds after the trigger
+      - name: Delay
+        run: sleep 3s
