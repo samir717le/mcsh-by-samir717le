@@ -1,5 +1,7 @@
 # MCSH(MINECRAFT SERVER HOST)
 MINECRAFT SERVER HOST EASY USING CLI
+## Status
+[![.github/workflows/mcsh.yml](https://github.com/samir717le/mcsh-by-samir717le/actions/workflows/mcsh.yml/badge.svg)](https://github.com/samir717le/mcsh-by-samir717le/actions/workflows/mcsh.yml)
 
 ## Required
 curl
